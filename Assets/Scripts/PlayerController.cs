@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
                     anim.SetTrigger("dobleJump");
                 } else anim.SetTrigger("Jump");
                 
-                    coyoteTimeCounter = 0;
+                coyoteTimeCounter = 0;
                 jumpBufferCounter = 0;
                
             }
