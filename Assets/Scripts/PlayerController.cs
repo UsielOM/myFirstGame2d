@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -29,6 +30,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 wallJumpForce = new Vector2(5f, 8f);
     [SerializeField] private float wallJumpDuration;
 
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 10f;
+    [SerializeField] private float dashDuration = 0.35f;
+    [SerializeField] private float dashCooldown = 1f;
+
 
     // =====  Properties privates =====
     private float x = 0f;
@@ -46,6 +52,9 @@ public class PlayerController : MonoBehaviour
     private bool slidingWall;
     private bool wallJumping;
 
+    private bool dashing;
+    private bool canDash = true;
+
 
     // =====  Unity Events =====
     void Awake()
@@ -61,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
      void FixedUpdate()//Motor de fisicas
     {
-        if(!wallJumping)
+        if(!wallJumping && !dashing)
         {
             rb.linearVelocity = new Vector2(x * speed, slidingWall ? -wallSlideSpeed : rb.linearVelocity.y);
         }
@@ -82,6 +91,7 @@ public class PlayerController : MonoBehaviour
         JumpPlayer();
         HandelWallSlide();
         FlipPlayer();
+        HandelDash();
         UpdateAnimatorParameters();
     }
 
@@ -174,6 +184,14 @@ public class PlayerController : MonoBehaviour
             slidingWall = true;
         } else  slidingWall = false;
     }
+
+    private void HandelDash()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !slidingWall)
+        {
+            StartCoroutine(Dash());
+        }
+    }
     private bool IsGrounded ()
     {
         bool isGroundedPlayer = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);//Este va a dectectar si la esfera esta tocando la capa que le indiquemos se pasa la referencia de la esfera
@@ -192,5 +210,31 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("VerVelocity", rb.linearVelocity.y);// seteamos el valor de  velocidad de y
         anim.SetBool("isGrounded", IsGrounded());//seteamos el valor falso o verdadero
         anim.SetBool("wallJump", slidingWall);
+    }
+
+    // ==== Corutina ====
+
+    private IEnumerator Dash()
+    {
+        // Activar el dash
+        dashing = true;
+        canDash = false;
+
+        //desactivar la gravedad para poder hacer el dash
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0;
+        //direccion
+        int direction = transform.localScale.x > 0 ? 1 : -1;
+        rb.linearVelocity = new Vector2 (direction * dashSpeed, 0);
+        // Espera de 0.5f
+        yield return new WaitForSeconds(dashDuration);
+       
+
+        //Desactivar el dash
+        rb.gravityScale = originalGravity;
+        dashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 }
