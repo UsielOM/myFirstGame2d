@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashDuration = 0.35f;
     [SerializeField] private float dashCooldown = 1f;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem runParticles; //Se crea una varibale para almacenar particulas 
+
 
     // =====  Properties privates =====
     private float x = 0f;
@@ -63,21 +66,21 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-     void Start()
+    void Start()
     {
-        
+
     }
 
-     void FixedUpdate()//Motor de fisicas
+    void FixedUpdate()//Motor de fisicas
     {
-        if(!wallJumping && !dashing)
+        if (!wallJumping && !dashing)
         {
             rb.linearVelocity = new Vector2(x * speed, slidingWall ? -wallSlideSpeed : rb.linearVelocity.y);
         }
-        
+
     }
 
-     void OnDrawGizmos()//al usar gismos // se va a dibujar una esfera 
+    void OnDrawGizmos()//al usar gismos // se va a dibujar una esfera 
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);// En este punto se dibujo la esfera
@@ -93,7 +96,10 @@ public class PlayerController : MonoBehaviour
         FlipPlayer();
         HandelDash();
         UpdateAnimatorParameters();
+        HandleParticles();
     }
+
+
 
     // ===== Functions Private =====
     private void DetectInput()
@@ -116,10 +122,10 @@ public class PlayerController : MonoBehaviour
                 transform.localScale = new Vector3(-Mathf.Abs(scale.x), scale.y, scale.z);// se puso un menos para tranformar la escal a anegativo sea el valor que sea
             }
         }
-  
+
     }
 
-    private void JumpPlayer () // salto mediante addForce 
+    private void JumpPlayer() // salto mediante addForce 
     {
         if (jumpPressed)
         {
@@ -129,7 +135,7 @@ public class PlayerController : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
 
-        if(inJumpBuffer)
+        if (inJumpBuffer)
         {
             if ((inCoyoteTime || currentExtraJumps < extraJumps) && !slidingWall)
             {
@@ -166,7 +172,7 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(wallJumpForce.x * direction, wallJumpForce.y);// sE ESTA DANDO LA FUERZA DEL SALTO A LA DIRECCION QUE ESTE VIENDO
         currentExtraJumps = 0;
 
-       
+
         Invoke(nameof(StopWallJump), wallJumpDuration);//invoked va ejecutar una fucnion despeus de cierto tiempo que lo indiquemos
 
         Vector3 scale = transform.localScale;
@@ -176,13 +182,13 @@ public class PlayerController : MonoBehaviour
         jumpBufferCounter = 0;
     }
 
-    private void StopWallJump() { 
+    private void StopWallJump() {
         wallJumping = false;
     }
     private void HandelWallSlide() {
         if (IsWalled() && !IsGrounded() && x != 0 && rb.linearVelocity.y < -0.1f) {
             slidingWall = true;
-        } else  slidingWall = false;
+        } else slidingWall = false;
     }
 
     private void HandelDash()
@@ -192,6 +198,15 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Dash());
         }
     }
+
+    private void HandleParticles()
+    {
+        if (Mathf.Abs(rb.linearVelocity.x) > 0.1f && !runParticles.isPlaying && IsGrounded()) runParticles.Play();
+
+        else if ((Mathf.Abs(rb.linearVelocity.x) < 0.1f || !IsGrounded()) && runParticles.isPlaying) runParticles.Stop();
+
+    }
+
     private bool IsGrounded ()
     {
         bool isGroundedPlayer = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);//Este va a dectectar si la esfera esta tocando la capa que le indiquemos se pasa la referencia de la esfera
@@ -237,4 +252,5 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
+
 }
