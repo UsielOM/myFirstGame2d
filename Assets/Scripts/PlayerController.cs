@@ -37,12 +37,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem runParticles; //Se crea una varibale para almacenar particulas 
-
+    [SerializeField] private ParticleSystem jumpParticles;
+    [SerializeField] private ParticleSystem landParticles;
+    [SerializeField] private ParticleSystem dashParticles;
 
     // =====  Properties privates =====
     private float x = 0f;
     private bool jumpPressed;
     private int currentExtraJumps;
+    private bool justLand;
 
     private float coyoteTimeCounter;
     private bool inCoyoteTime => coyoteTimeCounter > 0;//Getter  este tendra el valor envace al resultado de la funcion flecha 
@@ -115,11 +118,13 @@ public class PlayerController : MonoBehaviour
             Vector3 scale = transform.localScale;
             if (x > 0)
             {
-                transform.localScale = new Vector3(Mathf.Abs(scale.x), scale.y, scale.z);//Se hace uso de valor absoluto 
+                transform.localScale = new Vector3(Mathf.Abs(scale.x), scale.y, scale.z);//Se hace uso de valor absoluto
+                dashParticles.transform.localScale = Vector3.one; 
             }
             else if (x < 0)
             {
                 transform.localScale = new Vector3(-Mathf.Abs(scale.x), scale.y, scale.z);// se puso un menos para tranformar la escal a anegativo sea el valor que sea
+                dashParticles.transform.localScale = new Vector3(-1,1,1);
             }
         }
 
@@ -146,7 +151,7 @@ public class PlayerController : MonoBehaviour
                     currentExtraJumps++;//COYOTE TIME PERMITE SALTAR MIENTRAS ESTAS EN AL AIRE POR UNOS SEGUNDOS PEQUEÑOS 
                     anim.SetTrigger("dobleJump");
                 } else anim.SetTrigger("Jump");
-
+                jumpParticles.Play();
                 coyoteTimeCounter = 0;
                 jumpBufferCounter = 0;
             } else if (slidingWall) {
@@ -158,9 +163,17 @@ public class PlayerController : MonoBehaviour
         {
             currentExtraJumps = 0;
             coyoteTimeCounter = coyoteTime;
+
+            if (justLand)
+            {
+                landParticles.Play();
+                justLand = false;
+            }
+       
         }
         else
         {
+            justLand = true;
             coyoteTimeCounter -= Time.deltaTime;
         }
     }
@@ -172,12 +185,12 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = new Vector2(wallJumpForce.x * direction, wallJumpForce.y);// sE ESTA DANDO LA FUERZA DEL SALTO A LA DIRECCION QUE ESTE VIENDO
         currentExtraJumps = 0;
 
-
+          
         Invoke(nameof(StopWallJump), wallJumpDuration);//invoked va ejecutar una fucnion despeus de cierto tiempo que lo indiquemos
 
         Vector3 scale = transform.localScale;
         transform.localScale = new Vector3(direction * -Mathf.Abs(scale.x), scale.y, scale.z);// Esto va a rotar al personaje  a la direccion del salto
-
+        jumpParticles.Play();
         coyoteTimeCounter = 0;
         jumpBufferCounter = 0;
     }
@@ -204,7 +217,6 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(rb.linearVelocity.x) > 0.1f && !runParticles.isPlaying && IsGrounded()) runParticles.Play();
 
         else if ((Mathf.Abs(rb.linearVelocity.x) < 0.1f || !IsGrounded()) && runParticles.isPlaying) runParticles.Stop();
-
     }
 
     private bool IsGrounded ()
@@ -239,8 +251,10 @@ public class PlayerController : MonoBehaviour
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0;
         //direccion
+        
         int direction = transform.localScale.x > 0 ? 1 : -1;
         rb.linearVelocity = new Vector2 (direction * dashSpeed, 0);
+        dashParticles.Play();
         // Espera de 0.5f
         yield return new WaitForSeconds(dashDuration);
        
@@ -248,7 +262,7 @@ public class PlayerController : MonoBehaviour
         //Desactivar el dash
         rb.gravityScale = originalGravity;
         dashing = false;
-
+        dashParticles.Stop();
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
