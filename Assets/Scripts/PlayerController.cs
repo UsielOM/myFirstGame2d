@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
             }
        
         }
-        else
+        else  
         {
             justLand = true;
             coyoteTimeCounter -= Time.deltaTime;
