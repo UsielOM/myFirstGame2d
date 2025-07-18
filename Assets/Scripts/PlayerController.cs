@@ -102,6 +102,18 @@ public class PlayerController : MonoBehaviour
         HandleParticles();
     }
 
+    // ===== Functions Public =====
+    public void Inpulse(Vector2 dir, float force)
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(dir *  force, ForceMode2D.Impulse);
+        anim.SetTrigger("Jump");
+
+        currentExtraJumps = 0;
+        coyoteTimeCounter = 0;
+        jumpBufferCounter = 0;
+    }
+
 
 
     // ===== Functions Private =====
