@@ -16,7 +16,7 @@ public class Fruit : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             anim.SetTrigger("Colected");
-
+            LevelController.Instance.AddCollectedFruit();
         }
     }
     
