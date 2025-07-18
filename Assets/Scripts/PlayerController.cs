@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
     private bool dashing;
     private bool canDash = true;
 
+    private Vector2 externalForce;
+
 
     // =====  Unity Events =====
     void Awake()
@@ -78,8 +80,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!wallJumping && !dashing)
         {
-            rb.linearVelocity = new Vector2(x * speed, slidingWall ? -wallSlideSpeed : rb.linearVelocity.y);
+
+            float horizontalVelocity = x * speed + externalForce.x;
+            float verticalVelocity = slidingWall ? -wallSlideSpeed : rb.linearVelocity.y + externalForce.y;
+
+            rb.linearVelocity = new Vector2(horizontalVelocity, verticalVelocity);
         }
+
+        externalForce = Vector2.zero;
 
     }
 
@@ -103,15 +111,21 @@ public class PlayerController : MonoBehaviour
     }
 
     // ===== Functions Public =====
-    public void Inpulse(Vector2 dir, float force)
+    public void Inpulse(Vector2 dir, float force, bool resetExtraJumps)
     {
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(dir *  force, ForceMode2D.Impulse);
-        anim.SetTrigger("Jump");
+        anim.SetBool("DoubledJumping", false);
 
-        currentExtraJumps = 0;
+        currentExtraJumps = resetExtraJumps ? 0 : extraJumps;
         coyoteTimeCounter = 0;
         jumpBufferCounter = 0;
+    }
+
+    public void AddExternalForce (Vector2 force)
+    {
+        externalForce += force;
+
     }
 
 
@@ -161,8 +175,9 @@ public class PlayerController : MonoBehaviour
                 if (!inCoyoteTime)
                 {
                     currentExtraJumps++;//COYOTE TIME PERMITE SALTAR MIENTRAS ESTAS EN AL AIRE POR UNOS SEGUNDOS PEQUEÑOS 
+                    anim.SetBool("DoubledJumping", true);
                     anim.SetTrigger("dobleJump");
-                } else anim.SetTrigger("Jump");
+                }
                 jumpParticles.Play();
                 coyoteTimeCounter = 0;
                 jumpBufferCounter = 0;
@@ -175,6 +190,7 @@ public class PlayerController : MonoBehaviour
         {
             currentExtraJumps = 0;
             coyoteTimeCounter = coyoteTime;
+            anim.SetBool("DoubledJumping", false);
 
             if (justLand)
             {
@@ -199,9 +215,9 @@ public class PlayerController : MonoBehaviour
 
           
         Invoke(nameof(StopWallJump), wallJumpDuration);//invoked va ejecutar una fucnion despeus de cierto tiempo que lo indiquemos
-
+        anim.SetBool("DoubledJumping", false);
         Vector3 scale = transform.localScale;
-        transform.localScale = new Vector3(direction * -Mathf.Abs(scale.x), scale.y, scale.z);// Esto va a rotar al personaje  a la direccion del salto
+        transform.localScale = new Vector3(direction * Mathf.Abs(scale.x), scale.y, scale.z);// Esto va a rotar al personaje  a la direccion del salto
         jumpParticles.Play();
         coyoteTimeCounter = 0;
         jumpBufferCounter = 0;
@@ -233,6 +249,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded ()
     {
+      
         bool isGroundedPlayer = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);//Este va a dectectar si la esfera esta tocando la capa que le indiquemos se pasa la referencia de la esfera
         return isGroundedPlayer;
     }

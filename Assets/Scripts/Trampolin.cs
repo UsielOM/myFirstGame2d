@@ -18,7 +18,7 @@ public class Trampolin : MonoBehaviour
     {
         if (collision.CompareTag("Player")) {
             anim.SetTrigger("jumped");
-            collision.GetComponent<PlayerController>().Inpulse(Vector2.up, force);
+            collision.GetComponent<PlayerController>().Inpulse(Vector2.up, force, true);
 
         }
     }
