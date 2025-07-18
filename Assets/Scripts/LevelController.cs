@@ -1,8 +1,11 @@
+
+using TMPro;
 using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
-    
+    [SerializeField] private TextMeshProUGUI fruitsCounterLavel;
+
     private int totalFruits;
     private int collectedFruits;
 
@@ -19,13 +22,13 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         totalFruits = FindObjectsByType<Fruit>(FindObjectsSortMode.None).Length;// nueva version
-        print(totalFruits);
+        fruitsCounterLavel.text = $"{collectedFruits} / {totalFruits}";
     }
 
     public void AddCollectedFruit()
     {
         collectedFruits++;
-        print($"Frutas recojidas: {collectedFruits}");
+        fruitsCounterLavel.text = $"{collectedFruits} / {totalFruits}";
 
         if (collectedFruits >= totalFruits) print("Nivel completado! :D"); 
     }
