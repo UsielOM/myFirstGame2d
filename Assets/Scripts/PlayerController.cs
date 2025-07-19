@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     // =====  Properties privates =====
     private float x = 0f;
+    private Vector2 playerVelocity;
     private bool jumpPressed;
     private int currentExtraJumps;
     private bool justLand;
@@ -63,6 +64,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 externalForce;
 
+    private Platform platform;
+
 
     // =====  Unity Events =====
     void Awake()
@@ -80,9 +83,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!wallJumping && !dashing)
         {
+            playerVelocity = new Vector2(x * speed + externalForce.x, rb.linearVelocity.y + externalForce.y);
+            Vector2 platformVelocity = platform != null ? platform.Velocity : Vector2.zero;
 
-            float horizontalVelocity = x * speed + externalForce.x;
-            float verticalVelocity = slidingWall ? -wallSlideSpeed : rb.linearVelocity.y + externalForce.y;
+            float horizontalVelocity = playerVelocity.x  + platformVelocity.x;
+            float verticalVelocity = slidingWall ? -wallSlideSpeed : rb.linearVelocity.y + externalForce.y  + platformVelocity.y;
 
             rb.linearVelocity = new Vector2(horizontalVelocity, verticalVelocity);
         }
@@ -126,6 +131,11 @@ public class PlayerController : MonoBehaviour
     {
         externalForce += force;
 
+    }
+
+    public void  SetPlatform(Platform platform)
+    {
+        this.platform = platform; // se usa this para refrencias varibles qeu creamos como tienen el mismo nombre
     }
 
 
@@ -242,9 +252,12 @@ public class PlayerController : MonoBehaviour
 
     private void HandleParticles()
     {
-        if (Mathf.Abs(rb.linearVelocity.x) > 0.1f && !runParticles.isPlaying && IsGrounded()) runParticles.Play();
+      
+            if (Mathf.Abs(rb.linearVelocity.x) > 0.1f && !runParticles.isPlaying && IsGrounded() )  runParticles.Play();
 
-        else if ((Mathf.Abs(rb.linearVelocity.x) < 0.1f || !IsGrounded()) && runParticles.isPlaying) runParticles.Stop();
+            else if ((Mathf.Abs(rb.linearVelocity.x) < 0.1f || !IsGrounded()) && runParticles.isPlaying) runParticles.Stop();
+        
+       
     }
 
     private bool IsGrounded ()
@@ -262,7 +275,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimatorParameters()
     {
-        anim.SetFloat("HorVelocity", Mathf.Abs(rb.linearVelocity.x));// seteamos el valor de  velocidad de x 
+        anim.SetFloat("HorVelocity", Mathf.Abs(playerVelocity.x));// seteamos el valor de  velocidad de x 
         anim.SetFloat("VerVelocity", rb.linearVelocity.y);// seteamos el valor de  velocidad de y
         anim.SetBool("isGrounded", IsGrounded());//seteamos el valor falso o verdadero
         anim.SetBool("wallJump", slidingWall);
