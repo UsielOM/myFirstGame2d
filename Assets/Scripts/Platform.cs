@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-
+    [SerializeField] private bool elevatorMode;
     [SerializeField] private Transform pointA;
     [SerializeField] private Transform pointB;
     [SerializeField] private float speed;
@@ -24,8 +24,9 @@ public class Platform : MonoBehaviour
     void Start()
     {
         transform.position = pointA.position;
-        targetPosition = pointB.position;
+        targetPosition = elevatorMode ? pointA.position : pointB.position;
         lastPosition = transform.position;
+        if(elevatorMode) animator.SetTrigger("Wood");
         StartCoroutine(nameof(WorkingLoop));
     }
 
@@ -33,6 +34,7 @@ public class Platform : MonoBehaviour
      void LateUpdate() // Es un update uan vez por frame pero se ejecuta despues del update 
     {
         Velocity = (transform.position - lastPosition) / Time.deltaTime;
+        Velocity = new Vector3(Velocity.x, 0, 0);
         lastPosition = transform.position;
     }
 
@@ -42,7 +44,8 @@ public class Platform : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerController>().SetPlatform(this);//la paltaforma en la que esta aprado es uno mismo y se usa this
-        }
+            if(elevatorMode) targetPosition = pointB.position;
+         }
     }
 
      void OnTriggerExit2D(Collider2D collision)
@@ -50,6 +53,7 @@ public class Platform : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerController>().SetPlatform(null);//la paltaforma en la que esta aprado es uno mismo y se usa this
+            if (elevatorMode) targetPosition = pointA.position;
         }
     }
 
@@ -65,10 +69,16 @@ public class Platform : MonoBehaviour
             }
             transform.position = targetPosition;
             animator.SetBool("On", false);
-            yield return new WaitForSeconds(waitTime);
-            targetPosition = transform.position == pointA.position ? pointB.position : pointA.position;
+
+            if (!elevatorMode)
+            {
+                yield return new WaitForSeconds(waitTime);
+                targetPosition = transform.position == pointA.position ? pointB.position : pointA.position;
+            }
+
+            yield return null;
         }
 
-        yield return new WaitForSeconds(waitTime);
+        
     }
 }

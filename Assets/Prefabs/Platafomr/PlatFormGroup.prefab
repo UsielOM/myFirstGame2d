@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 6344897939041336529}
   - component: {fileID: 2517256338055969287}
   m_Layer: 6
-  m_Name: StonePlataform
+  m_Name: Plataform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe73e0a810424c4498c46df6048504d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  elevatorMode: 0
   pointA: {fileID: 4974889140806024436}
   pointB: {fileID: 6624142329022230159}
   speed: 1
