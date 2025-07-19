@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
+    private Collider2D col;
 
     private bool slidingWall;
     private bool wallJumping;
@@ -66,12 +67,15 @@ public class PlayerController : MonoBehaviour
 
     private Platform platform;
 
+    private bool dead;
+
 
     // =====  Unity Events =====
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        col = GetComponent<Collider2D>();
     }
 
     void Start()
@@ -81,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()//Motor de fisicas
     {
-        if (!wallJumping && !dashing)
+        if (!wallJumping && !dashing && !dead)
         {
             playerVelocity = new Vector2(x * speed + externalForce.x, rb.linearVelocity.y + externalForce.y);
             Vector2 platformVelocity = platform != null ? platform.Velocity : Vector2.zero;
@@ -106,17 +110,22 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        DetectInput();
-        JumpPlayer();
-        HandelWallSlide();
-        FlipPlayer();
-        HandelDash();
-        UpdateAnimatorParameters();
-        HandleParticles();
+        if(!dead)
+        {
+            DetectInput();
+            JumpPlayer();
+            HandelWallSlide();
+            FlipPlayer();
+            HandelDash();
+            UpdateAnimatorParameters();
+            HandleParticles();
+
+        }
+
     }
 
     // ===== Functions Public =====
-    public void Inpulse(Vector2 dir, float force, bool resetExtraJumps)
+    public void Impulse(Vector2 dir, float force, bool resetExtraJumps)
     {
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(dir *  force, ForceMode2D.Impulse);
@@ -136,6 +145,14 @@ public class PlayerController : MonoBehaviour
     public void  SetPlatform(Platform platform)
     {
         this.platform = platform; // se usa this para refrencias varibles qeu creamos como tienen el mismo nombre
+    }
+
+    public void Kill()
+    {
+        dead = true;
+        Impulse(Vector2.up, 5f, false);
+        col.enabled = false;
+        anim.SetBool("Die", true);
     }
 
 
@@ -275,10 +292,14 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimatorParameters()
     {
-        anim.SetFloat("HorVelocity", Mathf.Abs(playerVelocity.x));// seteamos el valor de  velocidad de x 
-        anim.SetFloat("VerVelocity", rb.linearVelocity.y);// seteamos el valor de  velocidad de y
-        anim.SetBool("isGrounded", IsGrounded());//seteamos el valor falso o verdadero
-        anim.SetBool("wallJump", slidingWall);
+       
+        
+            anim.SetFloat("HorVelocity", Mathf.Abs(playerVelocity.x));// seteamos el valor de  velocidad de x 
+            anim.SetFloat("VerVelocity", rb.linearVelocity.y);// seteamos el valor de  velocidad de y
+            anim.SetBool("isGrounded", IsGrounded());//seteamos el valor falso o verdadero
+            anim.SetBool("wallJump", slidingWall);
+        
+ 
     }
 
     // ==== Corutina ====
