@@ -20,13 +20,6 @@ public class Saw : MonoBehaviour
         StartCoroutine(nameof(WorkingLoop));
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            collision.GetComponent<PlayerController>().Kill();
-        }
-    }
 
     private IEnumerator WorkingLoop()
     {
