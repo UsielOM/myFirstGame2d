@@ -13,6 +13,9 @@ public class TrunkEnemy : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private Bullet bulletPrifab;
+    [SerializeField] private float bulletSpeed;
+
 
     //Private
 
@@ -22,6 +25,7 @@ public class TrunkEnemy : MonoBehaviour
     private bool stopped;
     private bool shooting;
     private Animator animator;
+    private Vector2 moveDirection => movingRight ? Vector2.right : Vector2.left; // getter
 
 
 
@@ -51,8 +55,8 @@ public class TrunkEnemy : MonoBehaviour
 
         }
 
-        Vector2 dir = movingRight ? Vector2.right : Vector2.left;// creamos un detector de usaurios para disparar
-        bool detectedPlaying = Physics2D.Raycast(wallCheck.position, dir, detectPlayerDistance, playerLayer);
+      
+        bool detectedPlaying = Physics2D.Raycast(wallCheck.position, moveDirection, detectPlayerDistance, playerLayer);
         if (detectedPlaying && !shooting) { 
             shooting= true;
             currentSpeed = 0;
@@ -79,8 +83,13 @@ public class TrunkEnemy : MonoBehaviour
         Gizmos.DrawRay(groundCheck.position, Vector2.down * 1);
         Gizmos.DrawRay(wallCheck.position, transform.right * 0.2f);
         Gizmos.color = Color.yellow;
-        Vector2 dir = movingRight ? Vector2.right : Vector2.left;// creamos un detector de usaurios para disparar
-        Gizmos.DrawRay(wallCheck.position, dir * detectPlayerDistance);
+        Gizmos.DrawRay(wallCheck.position, moveDirection * detectPlayerDistance);
+    }
+
+    private void Shoot()
+    {
+        //Instantiate(bulletPrifab,wallCheck.position, Quaternion.identity);//estamso creando uan instancia de la bala
+        Instantiate(bulletPrifab, wallCheck.position, Quaternion.identity).Init(bulletSpeed, moveDirection);
     }
 
     private IEnumerator Flip()
