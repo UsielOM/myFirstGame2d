@@ -229,7 +229,7 @@ MonoBehaviour:
   groundCheck: {fileID: 4160628206954072948}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 584
+    m_Bits: 72
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
