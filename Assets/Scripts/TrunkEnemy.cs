@@ -1,7 +1,8 @@
 using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class TrunkEnemy : MonoBehaviour
+public class TrunkEnemy : Enemy
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -18,23 +19,12 @@ public class TrunkEnemy : MonoBehaviour
 
 
     //Private
-
-    private Rigidbody2D rb;
     private bool movingRight = true;
     private float currentSpeed;
     private bool stopped;
     private bool shooting;
-    private Animator animator;
+
     private Vector2 moveDirection => movingRight ? Vector2.right : Vector2.left; // getter
-
-
-
-
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
 
     void Start()
     {
@@ -44,36 +34,45 @@ public class TrunkEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!stopped && !shooting)
+
+        if(!isDead)
         {
-            bool noGrounded = !Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);// si hay suelo
-            bool hittingWall = Physics2D.Raycast(wallCheck.position, transform.right, 0.2f, groundLayer);// si hay muros
-            if (noGrounded || hittingWall)
+            if (!stopped && !shooting)
             {
-                StartCoroutine(nameof(Flip));
+                bool noGrounded = !Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);// si hay suelo
+                bool hittingWall = Physics2D.Raycast(wallCheck.position, transform.right, 0.2f, groundLayer);// si hay muros
+                if (noGrounded || hittingWall)
+                {
+                    StartCoroutine(nameof(Flip));
+                }
             }
 
-        }
 
-      
-        bool detectedPlaying = Physics2D.Raycast(wallCheck.position, moveDirection, detectPlayerDistance, playerLayer);
-        if (detectedPlaying && !shooting) { 
-            shooting= true;
-            currentSpeed = 0;
-            animator.SetBool("Shoot", true);
-        } else if (!detectedPlaying && shooting)
-        {
-            shooting = false;
-            currentSpeed = speed;
-            animator.SetBool("Shoot", false);
+            bool detectedPlaying = Physics2D.Raycast(wallCheck.position, moveDirection, detectPlayerDistance, playerLayer);
+            if (detectedPlaying && !shooting)
+            {
+                shooting = true;
+                currentSpeed = 0;
+                animator.SetBool("Shoot", true);
+            }
+            else if (!detectedPlaying && shooting)
+            {
+                shooting = false;
+                currentSpeed = speed;
+                animator.SetBool("Shoot", false);
+            }
+            animator.SetFloat("Velocity", Mathf.Abs(rb.linearVelocity.x));
         }
-        animator.SetFloat("Velocity", Mathf.Abs(rb.linearVelocity.x));
+  
     }
     void FixedUpdate()
     {
-
-        float direction = movingRight ? 1f : -1f;
-        rb.linearVelocity = new Vector2(direction * currentSpeed, rb.linearVelocity.y); //moovimiento
+        if (!isDead)
+        {
+            float direction = movingRight ? 1f : -1f;
+            rb.linearVelocity = new Vector2(direction * currentSpeed, rb.linearVelocity.y); //moovimiento
+        }
+       
 
     }
 

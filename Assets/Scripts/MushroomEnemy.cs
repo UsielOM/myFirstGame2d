@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class MushroomEnemy : MonoBehaviour
+public class MushroomEnemy : Enemy
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -14,20 +14,9 @@ public class MushroomEnemy : MonoBehaviour
 
     //Private
 
-    private Rigidbody2D rb;
     private bool movingRight = true;
     private float currentSpeed;
     private bool stopped;
-    private Animator animator;
-
-
-
-
-     void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
 
      void Start()
     {
@@ -37,25 +26,29 @@ public class MushroomEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!stopped)
+        if (!isDead)
         {
-            bool noGrounded = !Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);// si hay suelo
-            bool hittingWall = Physics2D.Raycast(wallCheck.position, transform.right, 0.2f, groundLayer);// si hay muros
-            animator.SetBool("Run", true);
-            if (noGrounded || hittingWall)
+            if (!stopped)
             {
-                animator.SetBool("Run", false);
-                StartCoroutine(nameof(Flip));
+                bool noGrounded = !Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);// si hay suelo
+                bool hittingWall = Physics2D.Raycast(wallCheck.position, transform.right, 0.2f, groundLayer);// si hay muros
+                animator.SetBool("Run", true);
+                if (noGrounded || hittingWall)
+                {
+                    animator.SetBool("Run", false);
+                    StartCoroutine(nameof(Flip));
+                }
             }
-
         }
-      
     }
      void FixedUpdate()
     {
        
-        float direction = movingRight ? 1f: -1f;
-        rb.linearVelocity = new Vector2 (direction * currentSpeed, rb.linearVelocity.y); //moovimiento
+       if (!isDead)
+        {
+            float direction = movingRight ? 1f : -1f;
+            rb.linearVelocity = new Vector2(direction * currentSpeed, rb.linearVelocity.y); //moovimiento
+        }
                                                   
     }
 
