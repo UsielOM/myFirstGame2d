@@ -1,30 +1,25 @@
 using System.Collections;
-using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class TrunkEnemy : Enemy
+public class BeeEnemy : Enemy
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    //--Ser
-    [SerializeField] private float speed = 2f;
+    [SerializeField] private float speed = 2f; // Speed of the bee enemy
     [SerializeField] private float stopDuration = 0.75f;
-    [SerializeField] private float detectPlayerDistance = 5f;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float detectPlayerDistance = 5f; // Distance to detect the player
+    [SerializeField] private Transform wallCheck; // Transform to check for walls
+    [SerializeField] private Transform playerCheck; // Transform to check for the player
+    [SerializeField] private LayerMask groundLayer; // Transform to check for the player
+    [SerializeField] private LayerMask playerLayer; // Transform to check for the player
     [SerializeField] private Bullet bulletPrifab;
     [SerializeField] private float bulletSpeed;
 
-
-    //Private
     private bool movingRight = true;
     private float currentSpeed;
     private bool stopped;
     private bool shooting;
-
-    private Vector2 moveDirection => movingRight ? Vector2.right : Vector2.left; // getter
 
     void Start()
     {
@@ -34,61 +29,54 @@ public class TrunkEnemy : Enemy
     // Update is called once per frame
     void Update()
     {
-
-        if(!isDead)
+        if (!isDead)
         {
             if (!stopped && !shooting)
             {
-                bool noGrounded = !Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);// si hay suelo
+              
                 bool hittingWall = Physics2D.Raycast(wallCheck.position, transform.right, 0.2f, groundLayer);// si hay muros
-                if (noGrounded || hittingWall)
+                if ( hittingWall)
                 {
                     StartCoroutine(nameof(Flip));
                 }
             }
 
 
-            bool detectedPlaying = Physics2D.Raycast(wallCheck.position, moveDirection, detectPlayerDistance, playerLayer);
+            bool detectedPlaying = Physics2D.Raycast(playerCheck.position, Vector2.down, detectPlayerDistance, playerLayer);
             if (detectedPlaying && !shooting)
             {
                 shooting = true;
                 currentSpeed = 0;
-                animator.SetBool("Shoot", true);
+                animator.SetBool("isShoot", true);
             }
             else if (!detectedPlaying && shooting)
             {
                 shooting = false;
                 currentSpeed = speed;
-                animator.SetBool("Shoot", false);
+                animator.SetBool("isShoot", false);
             }
-            animator.SetFloat("Velocity", Mathf.Abs(rb.linearVelocity.x));
         }
-  
     }
-    void FixedUpdate()
+
+     void FixedUpdate()
     {
         if (!isDead)
         {
             float direction = movingRight ? 1f : -1f;
             rb.linearVelocity = new Vector2(direction * currentSpeed, rb.linearVelocity.y); //moovimiento
         }
-       
-
     }
-
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(groundCheck.position, Vector2.down * 1);
+        Gizmos.color = Color.blue;
         Gizmos.DrawRay(wallCheck.position, transform.right * 0.2f);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(wallCheck.position, moveDirection * detectPlayerDistance);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(playerCheck.position, Vector2.down * 2.5f);
     }
-
     private void Shoot()
     {
         //Instantiate(bulletPrifab,wallCheck.position, Quaternion.identity);//estamso creando uan instancia de la bala
-        Instantiate(bulletPrifab, wallCheck.position, Quaternion.identity).Init(bulletSpeed, moveDirection, true);
+        Instantiate(bulletPrifab, playerCheck.position, Quaternion.identity).Init(bulletSpeed, Vector2.down, false);
     }
 
     private IEnumerator Flip()

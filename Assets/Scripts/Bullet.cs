@@ -34,12 +34,13 @@ public class Bullet : MonoBehaviour
 
   
 
-    public void Init(float bulletSpeed, Vector2 dir) //metodos para instanciar 
+    public void Init(float bulletSpeed, Vector2 dir,bool isHor) //metodos para instanciar 
     {
         //velocidad y direccion
         rb = GetComponent<Rigidbody2D>();
         this.bulletSpeed = bulletSpeed *  dir; 
-        float horScale = Mathf.Abs(transform.localScale.x) * dir.x;// orientacion de la bala
+        float horScale = isHor ? Mathf.Abs(transform.localScale.x) * dir.x : 
+            Mathf.Abs(transform.localScale.y) * dir.y;// orientacion de la bala
         transform.localScale = new Vector2(horScale, transform.localScale.y);
     }
 

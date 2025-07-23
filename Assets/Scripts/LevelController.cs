@@ -34,23 +34,10 @@ public class LevelController : MonoBehaviour
 
         if (collectedFruits >= totalFruits)
         {
-            LoadNextLevel(); // Cargar el siguiente nivel si se han recolectado todas las frutas
+          GameManager.Instance.LoadNextLevel(); // Cargar el siguiente nivel cuando se hayan recolectado todas las frutas desde el GameManager
         }
     }
 
-    private void LoadNextLevel()
-    {
-        int currentLevel = SceneManager.GetActiveScene().buildIndex; // Obtener el índice del nivel actual
-        int nextLevel = currentLevel + 1; // Incrementar el índice para cargar el siguiente nivel
-        if (nextLevel < SceneManager.sceneCountInBuildSettings) // Verificar que el siguiente nivel existe
-        {
-            SceneManager.LoadScene(nextLevel); // Cargar el siguiente nivel
-        }
-        else
-        {
-            SceneManager.LoadScene(0); // Si no hay más niveles, reiniciar al primer nivel
-        }
-
-    }
+ 
 
 }
