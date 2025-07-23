@@ -6,9 +6,13 @@ using UnityEngine.SceneManagement; // Necesario para cargar el siguiente nivel
 public class LevelController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI fruitsCounterLavel;
+    [SerializeField] private TextMeshProUGUI healtBossCounterLevel;
+    [SerializeField] private bool isBossLevel; // Indica si el nivel es un nivel de jefe
 
     private int totalFruits;
     private int collectedFruits;
+    private int healthBoss = 3;
+    [SerializeField]
 
     public static LevelController Instance;
 
@@ -22,9 +26,16 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
-        totalFruits = FindObjectsByType<Fruit>(FindObjectsSortMode.None).Length;// nueva version
+        if(!isBossLevel)
+        {
+            totalFruits = FindObjectsByType<Fruit>(FindObjectsSortMode.None).Length;// nueva version
 
-        fruitsCounterLavel.text = $"{collectedFruits} / {totalFruits}";
+            fruitsCounterLavel.text = $"{collectedFruits} / {totalFruits}";
+        } else
+        {
+            healtBossCounterLevel.text = $"{healthBoss}";
+        }
+        
     }
 
     public void AddCollectedFruit()
@@ -38,6 +49,16 @@ public class LevelController : MonoBehaviour
         }
     }
 
- 
+
+    public void BossDefeated()
+    {
+       healthBoss -= 1; // Reducir la salud del jefe al ser derrotado
+        healtBossCounterLevel.text = $"{healthBoss}";
+        if (healthBoss <= 0)
+        {
+            GameManager.Instance.LoadNextLevel(); // Cargar el siguiente nivel cuando el jefe sea derrotado
+        }
+    }
+
 
 }

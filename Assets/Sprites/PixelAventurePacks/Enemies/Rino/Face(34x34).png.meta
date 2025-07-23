@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 3017c1b5693d1b94d9a7d6f2d08fcd70
+guid: 00f6f3eeb6e0563429f70c9205e3f171
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1047649535969266603
-    second: Hit Wall (52x34)_0
-  - first:
-      213: -4242890834327137056
-    second: Hit Wall (52x34)_1
-  - first:
-      213: -2751705753285338651
-    second: Hit Wall (52x34)_2
-  - first:
-      213: 698045928217798732
-    second: Hit Wall (52x34)_3
+      213: -8962658099836563302
+    second: Face(34x34)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 52
+  spritePixelsToUnits: 34
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hit Wall (52x34)_0
+      name: Face(34x34)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 52
-        height: 34
+        width: 26
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 554f2773c400671f0800000000000000
-      internalID: -1047649535969266603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hit Wall (52x34)_1
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 0
-        width: 52
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0e49b2714493e15c0800000000000000
-      internalID: -4242890834327137056
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hit Wall (52x34)_2
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 0
-        width: 52
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5e95701523affc9d0800000000000000
-      internalID: -2751705753285338651
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hit Wall (52x34)_3
-      rect:
-        serializedVersion: 2
-        x: 156
-        y: 0
-        width: 52
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c486454c215ffa900800000000000000
-      internalID: 698045928217798732
+      spriteID: a90d6f3c1fd3e9380800000000000000
+      internalID: -8962658099836563302
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 46ad586c2a73c4f49b78dc3e94b7af11
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hit Wall (52x34)_0: -1047649535969266603
-      Hit Wall (52x34)_1: -4242890834327137056
-      Hit Wall (52x34)_2: -2751705753285338651
-      Hit Wall (52x34)_3: 698045928217798732
+      Face(34x34)_0: -8962658099836563302
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
