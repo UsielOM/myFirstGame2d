@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -7,7 +8,8 @@ public class Enemy : MonoBehaviour
     protected Collider2D col;
 
 
-    protected bool isDead = false;  
+    protected bool isDead = false;
+    protected bool bossDamge = false;
 
 
     private float impulseForce = 5f;
@@ -24,16 +26,22 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-           PlayerController playerController =  collision.gameObject.GetComponent<PlayerController>();
-            if (playerController.transform.position.y < transform.position.y + transform.localScale.y / 2)
+
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
+            if (playerController.VerticalVelocity < 0)
             {
-                playerController.Kill();
+                if(gameObject.CompareTag("Boss")) {
+                    animator.SetBool("Dead", true);
+                    bossDamge = true;
+                    playerController.Impulse(Vector2.up, 7, true);
+                    LevelController.Instance.BossDefeated();
+                } else
+                {
+                    playerController.Impulse(Vector2.up, 7, true);
+                    Die();
+                }
             }
-            else
-            {
-                playerController.Impulse(Vector2.up, 7, true);
-                Die();
-            }
+            else  playerController.Kill();
         }
     }
 
@@ -44,4 +52,6 @@ public class Enemy : MonoBehaviour
         animator.SetBool("Dead", true);
         isDead = true;
     }
+
+
 }

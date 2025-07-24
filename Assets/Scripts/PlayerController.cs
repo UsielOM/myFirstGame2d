@@ -41,9 +41,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem landParticles;
     [SerializeField] private ParticleSystem dashParticles;
 
+    public float VerticalVelocity  => rb.linearVelocity.y; //Propiedad para obtener la velocidad vertical del jugador
     // =====  Properties privates =====
     private float x = 0f;
     private Vector2 playerVelocity;
+   
     private bool jumpPressed;
     private int currentExtraJumps;
     private bool justLand;

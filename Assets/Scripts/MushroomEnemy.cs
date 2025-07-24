@@ -31,7 +31,7 @@ public class MushroomEnemy : Enemy
             if (!stopped)
             {
                 bool noGrounded = !Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);// si hay suelo
-                bool hittingWall = Physics2D.Raycast(wallCheck.position, transform.right, 0.2f, groundLayer);// si hay muros
+                bool hittingWall = Physics2D.Raycast(wallCheck.position, transform.right , 0.2f, groundLayer);// si hay muros
                 animator.SetBool("Run", true);
                 if (noGrounded || hittingWall)
                 {
