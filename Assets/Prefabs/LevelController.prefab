@@ -258,6 +258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitsCounterLavel: {fileID: 5924109140461457315}
+  healtBossCounterLevel: {fileID: 0}
+  isBossLevel: 0
 --- !u!1 &7327318522389654627
 GameObject:
   m_ObjectHideFlags: 0
