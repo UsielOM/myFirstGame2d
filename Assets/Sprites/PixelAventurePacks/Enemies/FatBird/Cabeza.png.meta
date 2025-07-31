@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: a7efde01d4a31d1438e31aef56c331ad
+guid: 5dbc3f86a9972b243903cd2bf20e4fef
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3212130233290299859
-    second: Hit (40x48)_0
-  - first:
-      213: 9099119616611608060
-    second: Hit (40x48)_1
-  - first:
-      213: 5776852391583572303
-    second: Hit (40x48)_2
-  - first:
-      213: 4404715702971333830
-    second: Hit (40x48)_3
-  - first:
-      213: -6399027368534209264
-    second: Hit (40x48)_4
+      213: 8468872609703274317
+    second: Cabeza_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Hit (40x48)_0
+      name: Cabeza_0
       rect:
         serializedVersion: 2
         x: 0
@@ -127,96 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3d99f87bd67c39c20800000000000000
-      internalID: 3212130233290299859
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hit (40x48)_1
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 0
-        width: 40
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cf56ce40511964e70800000000000000
-      internalID: 9099119616611608060
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hit (40x48)_2
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 0
-        width: 40
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f416430a4a08b2050800000000000000
-      internalID: 5776852391583572303
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hit (40x48)_3
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 0
-        width: 40
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6ccf03c3891b02d30800000000000000
-      internalID: 4404715702971333830
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Hit (40x48)_4
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 40
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 01d048603861237a0800000000000000
-      internalID: -6399027368534209264
+      spriteID: d47266db4ca778570800000000000000
+      internalID: 8468872609703274317
       vertices: []
       indices: 
       edges: []
@@ -225,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 603bea1cc103ac74eae79ff2f11c5f74
+    spriteID: 28585aa20667a29439768fb36b6e8143
     internalID: 0
     vertices: []
     indices: 
@@ -235,11 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Hit (40x48)_0: 3212130233290299859
-      Hit (40x48)_1: 9099119616611608060
-      Hit (40x48)_2: 5776852391583572303
-      Hit (40x48)_3: 4404715702971333830
-      Hit (40x48)_4: -6399027368534209264
+      Cabeza_0: 8468872609703274317
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

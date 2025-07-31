@@ -27,7 +27,6 @@ public class RinoEnemy : Enemy
         {
             if (!stopped)
             {
-                print("RinoEnemy Update called");
                 bool hittingWall = Physics2D.Raycast(wallCheck.position, transform.right, 0.2f, groundLayer);// si hay muros
                 animator.SetBool("Run", true);
                 if (hittingWall && !bossDamge)

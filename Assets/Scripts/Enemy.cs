@@ -26,22 +26,26 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            if (playerController.VerticalVelocity < 0)
+            float positionVerticalEnemy = rb.position.y + 1f; 
+            if (playerController.VerticalVelocity > positionVerticalEnemy)
             {
-                if(gameObject.CompareTag("Boss")) {
+                if (gameObject.CompareTag("Boss"))
+                {
                     animator.SetBool("Dead", true);
                     bossDamge = true;
                     playerController.Impulse(Vector2.up, 7, true);
                     LevelController.Instance.BossDefeated();
-                } else
+                }
+                else
                 {
                     playerController.Impulse(Vector2.up, 7, true);
                     Die();
                 }
             }
-            else  playerController.Kill();
+            else {
+                playerController.Kill();
+            } 
         }
     }
 
