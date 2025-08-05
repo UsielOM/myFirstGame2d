@@ -5,12 +5,22 @@ public class SpikeBall : MonoBehaviour
 
     [SerializeField] private float maxAngle = 45f; 
     [SerializeField] private float speed = 2f;
+    [SerializeField] private float initialAngle = 0f;
 
     private float time;
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime * speed;
+
+        if (time == 0f) // si el tiempo es cero
+        {
+            time = Mathf.Asin(initialAngle / maxAngle); // asin es el angulo inicial dividido por el angulo maximo
+        } else
+        {
+            time += Time.deltaTime * speed;
+        }
+
+           
         //calcular el angulo para el movimiento
 
         float angle = Mathf.Sin(time) * maxAngle;// esta linea hace el calculo del seno la rotacion
@@ -18,5 +28,7 @@ public class SpikeBall : MonoBehaviour
         transform.rotation = Quaternion.Euler(0,0,angle); // angulos de euler  aqui estamos haciendo que rote el objeto en Eje Z
 
     }
+
+
 }
 
