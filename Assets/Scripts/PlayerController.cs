@@ -155,6 +155,8 @@ public class PlayerController : MonoBehaviour
         Impulse(Vector2.up, 5f, false);
         col.enabled = false;
         anim.SetBool("Die", true);
+
+        GameManager.Instance.ResetLevel(); //Se llama al GameManger para reiniciar el nivel
     }
 
 
