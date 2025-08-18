@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -112,10 +112,10 @@ TextureImporter:
       name: Blink (42x42)_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 4
-        width: 34
-        height: 34
+        x: 0
+        y: 0
+        width: 42
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: Blink (42x42)_1
       rect:
         serializedVersion: 2
-        x: 46
-        y: 4
-        width: 34
-        height: 34
+        x: 42
+        y: 0
+        width: 42
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,10 +156,10 @@ TextureImporter:
       name: Blink (42x42)_2
       rect:
         serializedVersion: 2
-        x: 88
-        y: 4
-        width: 34
-        height: 34
+        x: 84
+        y: 0
+        width: 42
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,10 +178,10 @@ TextureImporter:
       name: Blink (42x42)_3
       rect:
         serializedVersion: 2
-        x: 130
-        y: 4
-        width: 34
-        height: 34
+        x: 126
+        y: 0
+        width: 42
+        height: 42
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 03b1357f079d5db45bd72fbb55174324
     internalID: 0
     vertices: []
     indices: 

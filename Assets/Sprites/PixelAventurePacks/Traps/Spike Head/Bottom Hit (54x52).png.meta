@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,9 +113,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 3
-        width: 55
-        height: 40
+        y: 0
+        width: 54
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,18 +135,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 54
-        y: 3
-        width: 55
-        height: 40
+        y: 0
+        width: 54
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 09decee07b25bade0800000000000000
+      spriteID: d6c8d1714aa9f5648ae01cdde2503deb
       internalID: -1320871119520207472
       vertices: []
       indices: 
@@ -156,19 +156,19 @@ TextureImporter:
       name: Bottom Hit (54x52)_2
       rect:
         serializedVersion: 2
-        x: 110
-        y: 3
-        width: 51
-        height: 42
+        x: 108
+        y: 0
+        width: 54
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5182ea87c25eaa370800000000000000
+      spriteID: ddc6e2c3a6c4b1a4380cb5ea0e042f55
       internalID: 8334726039568525333
       vertices: []
       indices: 
@@ -178,19 +178,19 @@ TextureImporter:
       name: Bottom Hit (54x52)_3
       rect:
         serializedVersion: 2
-        x: 166
-        y: 3
-        width: 47
-        height: 44
+        x: 162
+        y: 0
+        width: 54
+        height: 52
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 52a22ec91f22f3090800000000000000
+      spriteID: f0f95a9b70ce3024289de4ad37938a78
       internalID: -8052679187600627163
       vertices: []
       indices: 
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 41c1524223e0ddb498d5b6da40d113c5
     internalID: 0
     vertices: []
     indices: 
