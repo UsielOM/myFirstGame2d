@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void LoadLevel(int levelIndex)
+    {
+        SceneManager.LoadScene(levelIndex); // Cargar el nivel especificado por el índice
+    }
+
     public void ResetLevel()
     {
         StartCoroutine(nameof(ResetLevelDelayed)); // Iniciar la corrutina para reiniciar el nivel después de un retraso

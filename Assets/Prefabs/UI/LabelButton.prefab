@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8663879321572402742}
   - component: {fileID: 859703131024470557}
   - component: {fileID: 4892527209889459343}
+  - component: {fileID: 2271768989296116132}
   m_Layer: 5
   m_Name: LabelButton
   m_TagString: Untagged
@@ -120,7 +121,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 859703131024470557}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2271768989296116132}
+        m_TargetAssemblyTypeName: LevelButton, Assembly-CSharp
+        m_MethodName: StartLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2271768989296116132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2743411208831998549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67391720590afc24d9864e84dc11361a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelNumberText: {fileID: 6260779681530373384}
 --- !u!1 &2794762696393339587
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +239,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 90
+  m_fontSize: 18
   m_fontSizeBase: 59.4
   m_fontWeight: 400
   m_enableAutoSizing: 1
