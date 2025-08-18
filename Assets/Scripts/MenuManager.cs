@@ -9,10 +9,17 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         SpawnLevelButtons();
+
     }
     public void PLay()
     {
         GameManager.Instance.LoadNextLevel(); // Llama al método LoadNextLevel del GameManager para iniciar el juego
+    }
+
+    public void ResetProgress()
+    {
+        PlayerPrefs.DeleteKey("HigherLevel"); // Elimina el progreso guardado del jugador
+        SceneManager.LoadScene(0); // Reinicia al primer nivel
     }
     public void ExitGame()
     {
@@ -27,6 +34,8 @@ public class MenuManager : MonoBehaviour
         {
             LevelButton currentLevelButton = Instantiate(levelButtonPrefab, levelButtonsContainer);
             currentLevelButton.SetLevel(i);
+            bool isLocked = i > PlayerPrefs.GetInt("HigherLevel") + 1; // Verifica si el nivel está bloqueado
+            currentLevelButton.SetLocked(isLocked); // Bloquea el botón si el nivel es mayor al nivel más alto alcanzado
         }
     }
 }

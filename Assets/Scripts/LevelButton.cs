@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 
@@ -18,6 +19,11 @@ public class LevelButton : MonoBehaviour
     public void StartLevel()
     {
         GameManager.Instance.LoadLevel(levelNumber); // Llama al método LoadLevel del GameManager para iniciar el nivel
+    }
+
+    public void SetLocked(bool loked)
+    {
+        GetComponent<Button>().interactable = !loked;
     }
 
 }

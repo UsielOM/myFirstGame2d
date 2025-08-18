@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
         int nextLevel = currentLevel + 1; // Incrementar el índice para cargar el siguiente nivel
         if (nextLevel < SceneManager.sceneCountInBuildSettings) // Verificar que el siguiente nivel existe
         {
+            if(currentLevel > PlayerPrefs.GetInt("HigherLevel")) PlayerPrefs.SetInt("HigherLevel", currentLevel);
+
             SceneManager.LoadScene(nextLevel); // Cargar el siguiente nivel
         }
         else
