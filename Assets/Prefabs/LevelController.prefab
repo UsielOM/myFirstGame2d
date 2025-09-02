@@ -259,6 +259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fruitsCounterLavel: {fileID: 5924109140461457315}
   healtBossCounterLevel: {fileID: 0}
+  coinSound: {fileID: 8300000, guid: ed0cf988be3b711459fa6e8ec64d27c6, type: 3}
+  finishLevelSound: {fileID: 8300000, guid: 51f809b896b91f24baa7e590b4f54afc, type: 3}
   isBossLevel: 0
 --- !u!1 &7327318522389654627
 GameObject:

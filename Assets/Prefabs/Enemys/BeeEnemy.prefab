@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17549734cbefa6444a48721ec66bce35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadSound: {fileID: 8300000, guid: 7a01a3d3560fe4849a2251517afa5e3f, type: 3}
   speed: 2
   stopDuration: 0.75
   detectPlayerDistance: 5

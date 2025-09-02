@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
     protected Animator animator;
     protected Collider2D col;
+    [SerializeField] private AudioClip deadSound;
 
 
     protected bool isDead = false;
@@ -55,6 +56,7 @@ public class Enemy : MonoBehaviour
         rb.AddForce(Vector2.up * impulseForce);
         animator.SetBool("Dead", true);
         isDead = true;
+        GameManager.Instance.PlaySound(deadSound);
     }
 
 

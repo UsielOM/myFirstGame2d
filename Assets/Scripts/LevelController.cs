@@ -7,6 +7,7 @@ public class LevelController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI fruitsCounterLavel;
     [SerializeField] private TextMeshProUGUI healtBossCounterLevel;
+    [SerializeField] private AudioClip coinSound; // Clip de audio para el sonido de reinicio
     [SerializeField] private bool isBossLevel; // Indica si el nivel es un nivel de jefe
 
     private int totalFruits;
@@ -42,10 +43,10 @@ public class LevelController : MonoBehaviour
     {
         collectedFruits++;
         fruitsCounterLavel.text = $"{collectedFruits} / {totalFruits}";
-
+        GameManager.Instance.PlaySound(coinSound, 0.5f); // Reproducir el sonido de moneda al recolectar una fruta
         if (collectedFruits >= totalFruits)
         {
-          GameManager.Instance.LoadNextLevel(); // Cargar el siguiente nivel cuando se hayan recolectado todas las frutas desde el GameManager
+            GameManager.Instance.LoadNextLevel(); // Cargar el siguiente nivel cuando se hayan recolectado todas las frutas desde el GameManager
         }
     }
 
